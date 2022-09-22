@@ -1,5 +1,11 @@
+
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rootcart/bloc/user_bloc.dart';
 import 'package:rootcart/home/home.dart';
+import 'package:rootcart/home/pages/home.dart';
 import 'package:rootcart/user/signup.dart';
 
 
@@ -14,6 +20,7 @@ class _LoginState extends State<Login> {
 
   TextEditingController EmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,101 @@ class _LoginState extends State<Login> {
         body:
             SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: ListView(
+          child: BlocListener<UserBloc, UserState>(
+  listener: (context, state) {
+    if(state is UserLoading){
+
+        //
+        // // set up the button
+        // Widget okButton = TextButton(
+        //   child: Text("OK"),
+        //   onPressed: () { },
+        // );
+        //
+        // // set up the AlertDialog
+        // AlertDialog alert = AlertDialog(
+        //   title: Text("Loading"),
+        //   content: Text("This is my message."),
+        //   actions: [
+        //     okButton,
+        //   ],
+        // );
+        //
+        // // show the dialog
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return alert;
+        //   },
+        // );
+
+    }
+    if(state is UserError){
+
+
+        // set up the button
+        Widget okButton = TextButton(
+          child: Text("OK"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Error"),
+          content: Text("This is my message."),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+
+    }
+    if(state is UserLoaded){
+      String loginInfo = BlocProvider.of<UserBloc>(context).loginResponse;
+
+
+      if(loginInfo.contains("Login successful!") ){
+        Navigator.push(context, MaterialPageRoute(builder: (Ctx)=>Nibuyhome()));
+
+      } else{
+
+        // set up the button
+        Widget okButton = TextButton(
+          child: Text("OK"),
+          onPressed: () {Navigator.pop(context); },
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Login Failed"),
+          content: Text("Incorrect password"),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+
+      }
+    }
+    // TODO: implement listener
+  },
+  child: ListView(
             children: [
               Column(
                 children: [
@@ -34,7 +135,7 @@ class _LoginState extends State<Login> {
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: AssetImage(
-                              "asset/Login logo/logo-removebg-preview.png",
+                              "assets/MyAccount/images.png",
                             ),
                           )),
                     ),
@@ -96,10 +197,30 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: TextFormField(
+                      obscureText: false,
+                      controller: nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Can\'t be empty';
+                        }
+                       
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.lock),
+                        labelText: 'Name',
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 300),
                     child: TextButton(
                       onPressed: () {
+
                         //forgot password screen
                       },
                       child: const Text(
@@ -124,7 +245,8 @@ class _LoginState extends State<Login> {
                         //     context,
                         //     passwordController.text,
                         //     EmailController.text);
-                         Navigator.push(context, MaterialPageRoute(builder: (ctx)=>Nibuyhome()));
+                        BlocProvider.of<UserBloc>(context).add(getLogin(EmailController.value.text, nameController.value.text,passwordController.value.text));
+
                         // }
 
                         // print(MobileNomberController.text);
@@ -156,6 +278,7 @@ class _LoginState extends State<Login> {
               ),
             ],
           ),
+),
         ),
       ),
     );

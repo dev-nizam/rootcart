@@ -25,7 +25,7 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child:Image.asset("asset/image/logo b - Copy.jpg"),
+        child:Image.asset("assets/MyAccount/bank-icon-19.png"),
       ),
     );
   }

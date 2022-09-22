@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rootcart/bloc/user_bloc.dart';
 import 'package:rootcart/widgets/splash.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp( MultiBlocProvider(
+      providers: [
+        BlocProvider(create:
+      (BuildContext context)=>UserBloc()),
+
+      ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

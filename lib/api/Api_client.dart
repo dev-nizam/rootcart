@@ -21,7 +21,7 @@ class ApiClient{
 
     switch (method) {
       case "POST":
-        response = await post(Uri.parse(url), headers: {},body: body);
+        response = await post(Uri.parse(url), headers: {'content-Type': 'application/json'},body: body);
         break;
       case "PUT":
         response = await put(Uri.parse(url), headers: {'content-Type': 'application/json',}, body: body);

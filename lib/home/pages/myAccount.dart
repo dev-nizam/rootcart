@@ -6,9 +6,9 @@ class MyAccount extends StatelessWidget {
     "assets/MyAccount/User-Profile-PNG-File.png",
     "assets/MyAccount/pngtree-vector-wallet-icon-png-image_1025642.jpg",
     "assets/MyAccount/png-transparent-computer-icons-purchase-order-order-fulfillment-purchasing-order-icon-blue-angle-text-thumbnail.png",
-    "https://www.freeiconspng.com/thumbs/bank-icon/bank-icon-19.png",
-    "assets/MyAccount/png-transparent-computer-icons-purchase-order-order-fulfillment-purchasing-order-icon-blue-angle-text-thumbnail.png",
-    "https://www.istockphoto.com/photos/mobile-phone",
+    "assets/MyAccount/bank-icon-19.png",
+    "assets/MyAccount/png-clipart-financial-transaction-computer-icons-money-service-user-passport-service-loan.png",
+    "assets/MyAccount/images.png",
   ];
   final Caption = [
     "Profile",
