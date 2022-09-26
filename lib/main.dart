@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rootcart/bloc/user_bloc.dart';
+import 'package:rootcart/bloc/product%20view/product_bloc.dart';
+import 'package:rootcart/bloc/user/user_bloc.dart';
 import 'package:rootcart/widgets/splash.dart';
 
 
 void main() {
   runApp( MultiBlocProvider(
       providers: [
-        BlocProvider(create:
-      (BuildContext context)=>UserBloc()),
+        BlocProvider(create: (BuildContext context)=>UserBloc()),
+        BlocProvider(create: (BuildContext context)=>ProductBloc()),
 
       ],
       child: MyApp()));

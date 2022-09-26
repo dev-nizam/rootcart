@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rootcart/bloc/product%20view/product_bloc.dart';
 import 'package:rootcart/home/pages/category.dart';
 import 'package:rootcart/home/pages/home.dart';
 import 'package:rootcart/home/pages/myAccount.dart';
@@ -17,6 +19,11 @@ class Nibuyhome extends StatefulWidget {
 }
 
 class _NibuyhomeState extends State<Nibuyhome> {
+  void initState() {
+    BlocProvider.of<ProductBloc>(context).add(getProduct());
+    // TODO: implement initState
+    super.initState();
+  }
   int currentIndex=0;
 final List page=[
   HomePage(),
@@ -69,7 +76,8 @@ final List page=[
 
 
         ),
-        body:page[currentIndex],
+        body:
+        page[currentIndex],
 
 
     );
